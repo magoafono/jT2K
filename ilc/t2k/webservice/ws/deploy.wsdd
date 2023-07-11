@@ -1,0 +1,31 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from JT2JWSIntService WSDL service -->
+
+  <service name="jt2k" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="urn:JT2JWSInt"/>
+      <parameter name="wsdlServiceElement" value="JT2JWSIntService"/>
+      <parameter name="wsdlServicePort" value="jt2k"/>
+      <parameter name="className" value="ilc.t2k.webservice.ws.Jt2KSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="JT2JWSInt"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="jt2KRun" qname="operNS:jt2kRun" xmlns:operNS="urn:JT2JWSInt" returnQName="jt2kRunReturn" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="in0" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="jt2KRunNoConf" qname="operNS:jt2kRunNoConf" xmlns:operNS="urn:JT2JWSInt" returnQName="jt2kRunNoConfReturn" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+      </operation>
+      <parameter name="allowedMethods" value="jt2KRun jt2KRunNoConf"/>
+      <parameter name="scope" value="Session"/>
+
+  </service>
+</deployment>
